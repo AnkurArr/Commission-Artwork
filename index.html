@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commission Artwork Order</title>
+    <style>
+        /* Reset */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Arial', sans-serif; background: linear-gradient(135deg, #f0f4f8, #d9e4f5); color: #333; display: flex; align-items: center; justify-content: center; min-height: 100vh; overflow-x: hidden; }
+
+        /* Container */
+        .container { max-width: 900px; width: 100%; padding: 20px; display: grid; gap: 20px; grid-template-columns: 1fr; }
+
+        /* Banner */
+        .banner { text-align: center; padding: 20px; background: linear-gradient(135deg, #4CAF50, #66bb6a); color: white; font-size: 28px; border-radius: 10px; box-shadow: 0 6px 12px rgba(0,0,0,0.1); animation: fadeIn 1.5s ease-in-out; }
+
+        /* Fade-in animation */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Top Deal */
+        .top-deal {
+            background-color: #f44336;
+            color: white;
+            padding: 5px 15px;
+            font-size: 18px;
+            text-align: center;
+            border-radius: 15px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        /* Frame for Image Change with Glow Animation */
+        .frame-wrapper { 
+            position: relative; 
+            width: 100%; 
+            aspect-ratio: 16 / 9; 
+            overflow: hidden; 
+            border-radius: 12px; 
+            border: 2px solid transparent; 
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); 
+            animation: glowAnimation 6s infinite alternate; 
+        }
+
+        /* Glow Animation */
+        @keyframes glowAnimation {
+            0% {
+                border-color: #ffcc00;
+                box-shadow: 0 0 15px rgba(255, 204, 0, 0.3);
+            }
+            25% {
+                border-color: #ff6600;
+                box-shadow: 0 0 25px rgba(255, 102, 0, 0.4);
+            }
+            50% {
+                border-color: #ff3366;
+                box-shadow: 0 0 35px rgba(255, 51, 102, 0.5);
+            }
+            75% {
+                border-color: #6633ff;
+                box-shadow: 0 0 45px rgba(102, 51, 255, 0.6);
+            }
+            100% {
+                border-color: #00cc99;
+                box-shadow: 0 0 60px rgba(0, 204, 153, 0.7);
+            }
+        }
+        
+        /* Image Style */
+        .frame-wrapper img { 
+            width: 100%; 
+            height: 100%;
+            padding: 10px;
+            border-radius: 17px; 
+            object-fit: cover; 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            opacity: 0; 
+            transition: opacity 1s ease-in-out; 
+        }
+
+
+
+        /* Card Style */
+        .card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 8px 16px rgba(0,0,0,0.15); animation: slideIn 0.5s ease-out; }
+
+        /* Keyframes for sliding animation */
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Description */
+        .description-card { text-align: center; font-size: 18px; color: #555; }
+        
+        /* Price Info */
+        .price-info { font-size: 22px; font-weight: bold; color: #4CAF50; margin-top: 10px; }
+        .base-price { text-decoration: line-through; color: #999; font-size: 18px; margin-top: 10px; }
+
+        /* Form Styling */
+        form { display: grid; gap: 15px; }
+        label { font-weight: bold; margin-bottom: 5px; }
+        input, select { padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; }
+        .total { font-size: 20px; font-weight: bold; color: #4CAF50; margin-top: 10px; text-align: center; }
+
+        /* Coupon */
+        .coupon-input { display: flex; gap: 10px; }
+        .apply-btn { background: #ff9800; color: white; padding: 10px; border: none; border-radius: 8px; cursor: pointer; transition: background 0.3s; }
+        .apply-btn:hover { background: #e68900; }
+
+        /* Coupon and Discount Display */
+        .discount-info { color: #f44336; font-size: 16px; margin-top: 5px; }
+        .error-message { color: red; font-size: 16px; margin-top: 5px; display: none; }
+
+        /* Submit Button */
+        .submit-btn { padding: 15px; font-size: 18px; background: #4CAF50; color: white; border: none; border-radius: 8px; cursor: pointer; transition: background 0.3s ease; opacity: 0.5; pointer-events: none; }
+        .submit-btn.enabled { opacity: 1; pointer-events: auto; }
+        .submit-btn:hover { background: #388e3c; }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Banner -->
+    <div class="banner">Order Your Custom Artwork</div>
+
+    <!-- Top Deal Label -->
+    <div class="top-deal">Top Deal - 50% Off Today!</div>
+    
+    <!-- Artwork Frame with Glow Animation and Automatic Image Change -->
+    <!-- Image Frame with automatic change and smooth transition -->
+    <div class="frame-wrapper">
+        <img src="IMG_4437.jpeg" alt="Artwork 1">
+        <img src="IMG_4439.jpeg" alt="Artwork 2">
+        <img src="IMG_4439.jpeg" alt="Artwork 3">
+    </div>
+
+    <!-- Description and Discount Prices -->
+    <div class="description-card card">
+        <p>Commission your unique artwork! Choose from different paper sizes and specify the number of people to be included. Enjoy discounts on larger orders.</p>
+        
+        <!-- Price info with strike-through base price and discounted price -->
+        <div class="price-info">
+            <span class="base-price">₹1999</span> 
+            <span id="finalPrice">₹1000</span> <!-- Discounted price -->
+        </div>
+        
+        <div class="discount-info">
+            Fake Discount: ₹999 off! 50% Off Today
+        </div>
+    </div>
+
+    <!-- Order Form -->
+    <div class="card">
+        <form id="orderForm">
+            <label for="name">Name</label>
+            <input type="text" id="name" required>
+            <label for="phone">Phone Number</label>
+            <input type="text" id="phone" required>
+            <label for="address">Address</label>
+            <input type="text" id="address" required>
+            <label for="landmark">Landmark</label>
+            <input type="text" id="landmark">
+            <label for="city">City</label>
+            <input type="text" id="city" required>
+            <label for="state">State</label>
+            <input type="text" id="state" required>
+            <label for="country">Country</label>
+            <input type="text" id="country" required>
+
+            <!-- Options for Paper Size and Person Count -->
+            <label for="paperSize">Paper Size</label>
+            <select id="paperSize" required onchange="calculateTotal()">
+                <option value="1000" data-price="1000">A4 - ₹1000</option>
+                <option value="1500" data-price="1500">A3 - ₹1500</option>
+                <option value="2000" data-price="2000">A2 - ₹2000</option>
+            </select>
+            <span id="paperPrice">₹1000</span> <!-- Paper Size Price Display -->
+
+            <label for="personCount">Person Count</label>
+            <select id="personCount" required onchange="calculateTotal()">
+                <option value="0" data-price="0">1 Person - No Extra Cost</option>
+                <option value="500" data-price="500">2 People - +₹500</option>
+                <option value="1000" data-price="1000">3 People - +₹1000</option>
+            </select>
+            <span id="personPrice">₹0</span> <!-- Person Count Price Display -->
+            
+            <!-- Coupon Code -->
+            <div class="coupon-input">
+                <input type="text" id="couponCode" placeholder="Enter coupon code (Optional)">
+                <button type="button" class="apply-btn" onclick="applyCoupon()">Apply Coupon</button>
+            </div>
+            <div class="discount-info" id="couponDiscount"></div>
+            <div class="error-message" id="couponError"></div>
+            
+            <!-- Total Price -->
+            <div class="total" id="totalPrice">Total: ₹1000</div>
+
+            <!-- Submit Button -->
+            <!-- Submit Button -->
+            <button type="button" class="submit-btn" id="submitBtn" onclick="submitOrder()" disabled>Submit Order</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    // JavaScript to handle image change with smooth transition
+    const images = document.querySelectorAll('.frame-wrapper img');
+    let currentIndex = 0;
+
+    function changeImage() {
+        // Hide the current image
+        images[currentIndex].style.opacity = 0;
+
+        // Move to the next image, wrapping around if needed
+        currentIndex = (currentIndex + 1) % images.length;
+
+        // Show the next image
+        images[currentIndex].style.opacity = 1;
+    }
+
+    // Change image every 3 seconds
+    setInterval(changeImage, 3000);
+
+    // Initialize the first image as visible
+    images[0].style.opacity = 1;
+    
+    
+    // Variables for prices
+    let basePrice = 1000;
+    let paperPrice = 0;
+    let personPrice = 0;
+    let couponDiscount = 0;
+
+    // Function to calculate total price
+    function calculateTotal() {
+        const paperSelect = document.getElementById("paperSize");
+        const personSelect = document.getElementById("personCount");
+
+        // Get selected paper size and person count prices
+        paperPrice = parseInt(paperSelect.value);
+        personPrice = parseInt(personSelect.value);
+
+        // Update the price displays
+        document.getElementById("paperPrice").innerText = `₹${paperPrice}`;
+        document.getElementById("personPrice").innerText = `₹${personPrice}`;
+
+        // Calculate final price
+        let totalPrice = paperPrice + personPrice - couponDiscount;
+
+        // Update the total price display
+        document.getElementById("finalPrice").innerText = `₹${totalPrice}`;
+        document.getElementById("totalPrice").innerText = `₹${totalPrice}`;
+
+        // Enable submit button if all fields are filled
+        const form = document.getElementById("orderForm");
+        const submitBtn = document.getElementById("submitBtn");
+        submitBtn.disabled = !form.checkValidity();
+        submitBtn.classList.toggle("enabled", form.checkValidity());
+    }
+
+    // Function to apply coupon discount
+    function applyCoupon() {
+        const couponCode = document.getElementById("couponCode").value.trim();
+        const discountDisplay = document.getElementById("couponDiscount");
+        const errorDisplay = document.getElementById("couponError");
+
+        if (couponCode === "DISCOUNT50") {
+            couponDiscount = 500;  // Discount amount
+            discountDisplay.innerText = "Coupon Applied! ₹500 Off!";
+            errorDisplay.style.display = "none";
+        } else {
+            couponDiscount = 0;
+            discountDisplay.innerText = "";
+            errorDisplay.style.display = "block";
+            errorDisplay.innerText = "Invalid Coupon Code!";
+        }
+
+        // Recalculate the total price after coupon application
+        calculateTotal();
+    }
+
+document.getElementById('orderForm').addEventListener('input', function() {
+        const allFilled = [...this.querySelectorAll('input, select')].every(input => input.value);
+        document.getElementById('submitBtn').disabled = !allFilled;
+        document.getElementById('submitBtn').classList.toggle('enabled', allFilled);
+    });
+
+    // Submit Order via WhatsApp
+    function submitOrder() {
+        const name = document.getElementById('name').value;
+        const phone = document.getElementById('phone').value;
+        const address = document.getElementById('address').value;
+        const landmark = document.getElementById('landmark').value;
+        const city = document.getElementById('city').value;
+        const state = document.getElementById('state').value;
+        const country = document.getElementById('country').value;
+        const paperSize = document.getElementById('paperSize').value;
+        const personCount = document.getElementById('personCount').value;
+        const totalPrice = calculateTotal();
+
+        const message = `Name: ${name}%0APhone: ${phone}%0AAddress: ${address}%0ALandmark: ${landmark}%0ACity: ${city} %0AState: ${state}%0ACountry: ${country}%0APaper Size: ${paperSize}%0APerson Count: ${personCount}%0ATotal Price: Extra Charge ${calculateTotal()}`;
+        window.open(`https://wa.me/6295979753?text=${message}`, '_blank');
+    }
+
+
+
+</script>
+
+</body>
+</html>
